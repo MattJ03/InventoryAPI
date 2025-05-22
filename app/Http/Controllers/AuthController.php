@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Services\AuthService;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
@@ -12,7 +12,7 @@ class AuthController extends Controller
         $request->validate([
           'name' => 'required|string|min:3|max:20',
           'email' => 'required|email',
-          'password' => 'reuqied|min:5|max:30',
+          'password' => 'required|min:5|max:30',
         ]);
 
         $authService->register($request);
@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function login(AuthService $authService, Request $request) {
         $credentials = $request->validate([
           'name' => 'required|string|min:3|max:20',
-          'email' => 'required|emal',
+          'email' => 'required|email',
           'password' => 'required|min:5|max:30',
         ]);
 
@@ -38,6 +38,9 @@ class AuthController extends Controller
         }
     }
 
+    public function logout(AuthService $authService, Request $request) {
 
-   
+        $authService->logout($request);
+
+    }
 }

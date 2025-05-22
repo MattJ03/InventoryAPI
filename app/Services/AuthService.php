@@ -16,9 +16,9 @@ class AuthServie {
 
     public function login(array $credentials): ?string {
 
-        $user = User::where()->only('email', $credentials['email'])->first();
+        $user = User::where('email', $credentials['email'])->first();
 
-        if(!$user || !Hash::check($credentials['password'], $user->passowrd)) {
+        if(!$user || !Hash::check($credentials['password'], $user->passoword)) {
             return null;
         }
 
