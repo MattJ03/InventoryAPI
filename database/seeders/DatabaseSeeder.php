@@ -13,11 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            
         ]);
+
+        $role1 = Role::create(['name' => 'moderator']);
+        $role2 = Role::create(['name' => 'guest']);
+
+        $permission1 = Permission::create(['name' => 'create stock']);
+        $permission2 = Permission::create(['name' => 'edit stock']);
+        $permission3 = Permission::create(['name' => 'view stock']);
+        $permission4 = Permission::create(['name' => 'delete stock']);
     }
 }
