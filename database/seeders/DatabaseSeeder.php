@@ -26,5 +26,8 @@ class DatabaseSeeder extends Seeder
         $permission2 = Permission::create(['name' => 'edit stock']);
         $permission3 = Permission::create(['name' => 'view stock']);
         $permission4 = Permission::create(['name' => 'delete stock']);
+
+        $role1->syncPermissions([$permission1, $permission2, $permission3, $permission4]);
+        $role2->syncPermissions([$permission3]);
     }
 }
