@@ -14,6 +14,7 @@ class StockService {
             'price' => $item['price'],
             'inStock' => $item['isStock'],       
         ]);
+        return $data;
     }
 
     public function show(int $id): ?Stock {
@@ -26,13 +27,22 @@ class StockService {
         if(!$stock) {
             return response()->json('Message', 'Stock not found');
         }
-          $stock->update($id);
+          $stock->update([
+            'name' => $stock['name'],
+            'capacity' => $stock['capacity'],
+            'price' => $stock['price'],
+            'inStock' => $stock['inStock'],
+          ]);
+
           return $stock;
     }
 
     public function delete(int $id): ?Stock {
         $stock = Stock::findOrFail($id);
-        $stock->delete();
+        if(!$stock) {
+            return response()->json(['message', 'stock not found']);
+        }
+       return $stock->delete();
         
     }
 }
