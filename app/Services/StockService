@@ -1,0 +1,38 @@
+<?php 
+
+namespace App\Services;
+
+use App\Models\Stock;
+use App\Models\User;
+
+class StockService {
+
+    public function create(array $item): ?Stock {
+        $data = Stock::create([
+            'name' => $item['name'],
+            'capacity' => $item['capacity'],
+            'price' => $item['price'],
+            'inStock' => $item['isStock'],       
+        ]);
+    }
+
+    public function show(int $id): ?Stock {
+        return Stock::findOrFail($id);
+    }
+
+    public function update(array $item, int $id): ?Stock {
+        $stock = Stock::find($id);
+
+        if(!$stock) {
+            return response()->json('Message', 'Stock not found');
+        }
+          $stock->update($id);
+          return $stock;
+    }
+
+    public function delete(int $id): ?Stock {
+        $stock = Stock::findOrFail($id);
+        $stock->delete();
+        
+    }
+}
