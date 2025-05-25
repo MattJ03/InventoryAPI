@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\stock;
+use App\Models\Stock;
 use Illuminate\Auth\Access\Response;
 
 class StockPolicy
@@ -13,7 +13,7 @@ class StockPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class StockPolicy
      */
     public function view(User $user, stock $stock): bool
     {
-        return false;
+        return $user->hasRole('moderator') || $user->id === $stock->user_id;
     }
 
     /**
@@ -29,7 +29,7 @@ class StockPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class StockPolicy
      */
     public function update(User $user, stock $stock): bool
     {
-        return false;
+        return $user->hasRole('moderator') || $user->id === $stock->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class StockPolicy
      */
     public function delete(User $user, stock $stock): bool
     {
-        return false;
+        return $user->hasRole('moderator') || $user->id === $stock->user_id;
     }
 
     /**
@@ -61,6 +61,7 @@ class StockPolicy
      */
     public function forceDelete(User $user, stock $stock): bool
     {
-        return false;
+        return $user->hasRole('moderator') || $user->id === $stock->user_id;
     }
+
 }

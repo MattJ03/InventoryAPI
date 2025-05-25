@@ -7,12 +7,17 @@ use App\Models\User;
 
 class StockService {
 
+    public function index(): Collection {
+       return Auth::user()->stocks;
+    }
+
     public function create(array $item): ?Stock {
         $data = Stock::create([
+            'user_id' => Auth::id(),
             'name' => $item['name'],
             'capacity' => $item['capacity'],
             'price' => $item['price'],
-            'inStock' => $item['isStock'],       
+            'inStock' => $item['inStock'],       
         ]);
         return $data;
     }
@@ -22,27 +27,13 @@ class StockService {
     }
 
     public function update(array $item, int $id): ?Stock {
-        $stock = Stock::find($id);
-
-        if(!$stock) {
-            return response()->json('Message', 'Stock not found');
-        }
-          $stock->update([
-            'name' => $stock['name'],
-            'capacity' => $stock['capacity'],
-            'price' => $stock['price'],
-            'inStock' => $stock['inStock'],
-          ]);
-
-          return $stock;
+        $stock = Stock::findOrFail($id);
+        $stock->update($item);
+        return $stock;
     }
 
     public function delete(int $id): ?Stock {
-        $stock = Stock::findOrFail($id);
-        if(!$stock) {
-            return response()->json(['message', 'stock not found']);
-        }
-       return $stock->delete();
-        
-    }
+       $stock = Stock::findOrFail($id);
+       return $stock->delete($id);
+}
 }
