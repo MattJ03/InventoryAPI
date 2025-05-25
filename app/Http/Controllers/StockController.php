@@ -8,7 +8,7 @@ use App\Models\Stock;
 use App\Models\User;
 class StockController extends Controller
 {
-    public function index(StockService $stockService,) {
+    public function index(StockService $stockService) {
         $stock = $stockService->index();
           
         return response()->json([
@@ -27,18 +27,18 @@ class StockController extends Controller
 
         ]);
     $stockService->create($data);
-    return response()->json(['Message', 'stock created', 'stock', $data]);
+    return response()->json(['Message' => 'stock created', 'stock' => $data]);
 }
 
     public function show(StockService $stockService, Request $request) {
-        $this->authorize('view', Stock::class);
-        $stock = $stockService->show($request->id);
+                $stock = $stockService->show($request->id);
+        $this->authorize('view', $stock);
           return response()->json($stock);
     }
 
     public function update(StockService $stockService, Request $request) {
         $stock = Stock::findOrFail($request->id);
-        $this->authorize('update', Stock::class);
+        $this->authorize('update', $stock);
         $data = $request->validate([
             'name' => 'required|min:3|max:25',
             'capacity' => 'required|integer',
@@ -46,15 +46,15 @@ class StockController extends Controller
             'inStock' => 'required|boolean',
 
         ]);
-        $stockService->update($data, $stock);
-        return response()->json(['Message', 'Stock updated']);
+        $stockService->update($data, $stock->id);
+        return response()->json(['Message' => 'Stock updated']);
     }
 
     public function delete(StockService $stockService, Request $request) {
-        $this->authorize('delete', Stock::class);
         $stock = Stock::findOrFail($request->id);
-        $stockService->delete($stock);
-        return response()->json(['Message', 'Stock deleted']);
+        $this->authorize('delete', $stock);
+        $stockService->delete($stock->id);
+        return response()->json(['Message' => 'Stock deleted']);
     }
 
 }
