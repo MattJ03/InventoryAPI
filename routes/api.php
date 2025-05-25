@@ -2,7 +2,22 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Stock;
+use App\Models\User;
+use App\Http\Controllers;
+use App\Http\StockController;
+use App\Http\AuthController;
 
-Route::Post('/register', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+Route::get('/index', [StockController::class, 'index']);
+Route::post('/create', [StockController::class, 'create']);
+Route::get('/stock/{id}', [StockController::class, 'show']);
+Route::put('/stock/update/{id}', [StockController::class, 'update']);
+Route::delete('/stock/delete/{id}', [StockController::class, 'delete']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
+});
+

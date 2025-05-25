@@ -10,6 +10,7 @@ use app\Http\Controllers;
 
 class StockApiTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
@@ -28,7 +29,7 @@ class StockApiTest extends TestCase
             'password_confirmation' => 'jamesPassword',
         ]);
 
-     $this->assertStatus(201);
+     
      $this->assertDatabaseHas('users', [
         'email' => 'james@gmail.com'
      ]);

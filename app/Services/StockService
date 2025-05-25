@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Stock;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 class StockService {
 
@@ -33,8 +34,8 @@ class StockService {
         return $stock;
     }
 
-    public function delete(int $id): ?Stock {
+    public function delete(int $id): ?bool {
        $stock = Stock::findOrFail($id);
-       return $stock->delete($id);
+       return $stock->delete();
 }
 }
