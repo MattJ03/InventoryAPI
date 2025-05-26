@@ -3,7 +3,7 @@
 namespace App\Services;
 use App\Models\User;
 
-class AuthServie {
+class AuthService {
 
     public function register(array $credentials): ?string {
     

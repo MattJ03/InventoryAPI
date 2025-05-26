@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use app\Http\Controllers;
+use Tests\Feature\Hash;
 
 
 class StockApiTest extends TestCase
@@ -26,12 +26,13 @@ class StockApiTest extends TestCase
             'name' => 'James',
             'email'=> 'james@gmail.com',
             'password' => 'jamesPassword',
-            'password_confirmation' => 'jamesPassword',
         ]);
-
+        
+        $response->assertStatus(201);
      
      $this->assertDatabaseHas('users', [
-        'email' => 'james@gmail.com'
+        'email' => 'james@gmail.com',
+        
      ]);
     }
 }

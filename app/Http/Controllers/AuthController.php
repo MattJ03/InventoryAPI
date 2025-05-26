@@ -8,7 +8,7 @@ use App\Services\AuthService;
 class AuthController extends Controller
 {
 
-    public function register(AuthSerice $authService, Request $request) {
+    public function register(AuthService $authService, Request $request) {
         $request->validate([
           'name' => 'required|string|min:3|max:20',
           'email' => 'required|email',

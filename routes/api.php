@@ -4,9 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Stock;
 use App\Models\User;
-use App\Http\Controllers;
-use App\Http\StockController;
-use App\Http\AuthController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\AuthController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'login']);
