@@ -14,9 +14,10 @@ class AuthController extends Controller
           'email' => 'required|email',
           'password' => 'required|min:5|max:30',
         ]);
+         $credentials = $request->only('name', 'email', 'password');
 
-        $authService->register($request);
-        return response()->json(['success', 'user registered']);
+        $authService->register($credentials);
+        return response()->json(['success' => 'user registered']);
     }
 
     public function login(AuthService $authService, Request $request) {
@@ -41,6 +42,7 @@ class AuthController extends Controller
     public function logout(AuthService $authService, Request $request) {
 
         $authService->logout($request);
+        return response()->json(['message' => 'User logged out']);
 
     }
 }

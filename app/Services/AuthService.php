@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService {
 
@@ -12,13 +13,14 @@ class AuthService {
           'email' => $credentials['email'],
           'password' => Hash::make($credentials['password'])
         ]);
+        return $data;
     }
 
     public function login(array $credentials): ?string {
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if(!$user || !Hash::check($credentials['password'], $user->passoword)) {
+        if(!$user || !Hash::check($credentials['password'], $user->password)) {
             return null;
         }
 
