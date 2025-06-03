@@ -52,7 +52,7 @@ class StockApiTest extends TestCase
         $response = $this->postJson('/api/register', [
         'name' => 'Bob',
         'email' => 'Bob@gmail.com',
-        'password' => 'hfhehhncehcewciwjewhvhiwhvhweiuhvrhrhvuehveuhvieuhehviehiuhvreh',
+        'password' => 'hfhehhncehcewciwjewhvhiwhvhweiuhvrhrhvuehveuhvieuhehviehiuhffffvreh',
         ]);
             $response->assertStatus(422);
             $this->assertDatabaseMissing('users', [
